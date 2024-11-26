@@ -52,16 +52,6 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Досягнення" />
-                    </StackPanel>
-                </TabItem.Header>
-
-            </TabItem>
-
-
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="4,4,0,0" Text="Помилки" />
                     </StackPanel>
                 </TabItem.Header>

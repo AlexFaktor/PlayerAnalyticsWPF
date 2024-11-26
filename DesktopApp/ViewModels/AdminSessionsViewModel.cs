@@ -1,13 +1,17 @@
-﻿namespace DesktopApp.ViewModels;
+﻿using Database.Records;
+using System.Collections.ObjectModel;
+
+namespace DesktopApp.ViewModels;
 
 internal class AdminSessionsViewModel : ViewModel
 {
+    private ObservableCollection<GameSessionRecord> _sessions = [];
 
-}
-
-internal class AdminFeedbacksViewModel : ViewModel
-{
-
+    public ObservableCollection<GameSessionRecord> Sessions
+    {
+        get => _sessions;
+        set => Set(ref _sessions, value);
+    }
 }
 
 

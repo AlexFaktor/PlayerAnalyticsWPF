@@ -13,6 +13,7 @@ namespace DesktopApp
     public partial class App : Application
     {
         public static ServiceProvider ServiceProvider { get; private set; }
+        public static UserRecord? CurrentUser;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -37,17 +38,17 @@ namespace DesktopApp
 
             // Реєстрація репозиторіїв
             services.AddScoped<UserRepository>();
-            services.AddScoped<IRepository<PlayerStatisticRecord>, PlayerStatisticRepository>();
-            services.AddScoped<IRepository<GameSessionRecord>, GameSessionRepository>();
-            services.AddScoped<IRepository<AchievementRecord>, AchievementRepository>();
-            services.AddScoped<IRepository<FeedbackRecord>, FeedbackRepository>();
-            services.AddScoped<IRepository<ReportRecord>, ReportRepository>();
+            services.AddScoped<PlayerStatisticRepository>();
+            services.AddScoped<GameSessionRepository>();
+            services.AddScoped<AchievementRepository>();
+            services.AddScoped<FeedbackRepository>();
+            services.AddScoped<ReportRepository>();
 
             // Реєстрація ViewModel
-            services.AddScoped<MainViewModel>();
+            services.AddSingleton<MainViewModel>();
 
             // Реєстрація Views
-            services.AddScoped<MainWindow>();
+            services.AddSingleton<MainWindow>();
         }
     }
 }

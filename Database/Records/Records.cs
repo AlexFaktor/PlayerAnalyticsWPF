@@ -80,5 +80,5 @@ public class ReportRecord
     public string ReportType { get; set; } = string.Empty;
     public string Details { get; set; } = string.Empty; // JSON або текст
 
-    public UserRecord Admin { get; set; }
+    public UserRecord Creator { get; set; }
 }

@@ -14,5 +14,87 @@
         <vm:AdminSessionsViewModel />
     </UserControl.DataContext>
 
-    <Grid />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Header  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="Сесії гравців" />
+
+        <DataGrid
+            Grid.Row="2"
+            Margin="0,0,0,10"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ItemsSource="{Binding Sessions}"
+            SelectionMode="Single">
+            <DataGrid.Columns>
+                <!--  User ID  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Id}"
+                    Header="ID"
+                    IsReadOnly="True" />
+
+                <!--  ID  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Name}"
+                    Header="ID гравця"
+                    IsReadOnly="True" />
+
+                <!--  Date  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding SessionDate}"
+                    Header="Дата"
+                    IsReadOnly="True" />
+
+                <!--  Score  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Score}"
+                    Header="Оцінка"
+                    IsReadOnly="True" />
+
+                <!--  Duration  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Duration}"
+                    Header="Тривалість"
+                    IsReadOnly="True" />
+
+                <!--  Result  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Result}"
+                    Header="Результа"
+                    IsReadOnly="True" />
+
+                <!--  Actions  -->
+                <DataGridTemplateColumn Width="Auto" Header="Дії">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding DataContext.DeleteUserCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}"
+                                    Content="Видалити"
+                                    Foreground="Red" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
 </UserControl>

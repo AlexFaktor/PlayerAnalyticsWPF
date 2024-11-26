@@ -14,5 +14,48 @@
         <vm:UserReportViewModel />
     </UserControl.DataContext>
 
-    <Grid />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Створити репорт про помилку" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,20" />
+
+        <!-- Report Form -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="10">
+            <!-- Report Type -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Тип помилки:" VerticalAlignment="Center" Width="100" />
+                <ComboBox ItemsSource="{Binding ReportTypes}" 
+                          SelectedItem="{Binding SelectedReportType}" 
+                          Width="200" />
+            </StackPanel>
+
+            <!-- Custom Type Input -->
+            <StackPanel Orientation="Horizontal" Visibility="{Binding IsCustomTypeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Вкажіть свій тип:" VerticalAlignment="Center" Width="100" />
+                <TextBox Text="{Binding CustomReportType}" Width="200" />
+            </StackPanel>
+
+            <!-- Details -->
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Деталі помилки:" />
+                <TextBox Text="{Binding Details}" 
+                         AcceptsReturn="True" 
+                         VerticalScrollBarVisibility="Auto" 
+                         Height="100" />
+            </StackPanel>
+
+            <!-- Submit Button -->
+            <Button Content="Відправити" 
+                    Command="{Binding SubmitReportCommand}" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,10,0,0" />
+        </StackPanel>
+    </Grid>
 </UserControl>

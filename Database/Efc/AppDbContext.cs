@@ -35,7 +35,7 @@ public class AppDbContext : DbContext
             .HasForeignKey(f => f.UserId);
 
         modelBuilder.Entity<ReportRecord>()
-            .HasOne(r => r.Admin)
+            .HasOne(r => r.Creator)
             .WithMany()
             .HasForeignKey(r => r.GeneratedBy);
     }

@@ -67,6 +67,18 @@ internal class AuthorizationViewModel : ViewModel
             mainVM.View = new MenuAdminViewModel();
         }
 
-        mainVM.User = user;
+        App.CurrentUser = user;
+
+        if (mainVM is null)
+        {
+            MessageBox.Show("MainViewModel is null", "Помилка!", MessageBoxButton.OK, icon: MessageBoxImage.Error);
+            return;
+        }
+
+        if (App.CurrentUser is null)
+        {
+            MessageBox.Show("MainViewModel.User is null", "Помилка!", MessageBoxButton.OK, icon: MessageBoxImage.Error);
+            return;
+        }
     }
 }
