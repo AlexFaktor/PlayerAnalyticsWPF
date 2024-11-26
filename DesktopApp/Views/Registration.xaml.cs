@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,26 @@ namespace DesktopApp.Views
         public Registration()
         {
             InitializeComponent();
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var passwordBox = sender as PasswordBox;
+            var viewModel = DataContext as RegistrationViewModel;
+            if (viewModel != null && passwordBox != null)
+            {
+                viewModel.Password = passwordBox.Password;
+            }
+        }
+
+        private void PasswordBox_PasswordChanged_Repeat(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var passwordBox = sender as PasswordBox;
+            var viewModel = DataContext as RegistrationViewModel;
+            if (viewModel != null && passwordBox != null)
+            {
+                viewModel.PasswordRepeat = passwordBox.Password;
+            }
         }
     }
 }

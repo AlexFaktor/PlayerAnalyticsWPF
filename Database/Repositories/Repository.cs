@@ -7,7 +7,7 @@ namespace Database.Repositories;
 public interface IRepository<T>
 {
     Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetByIdAsync(Guid id);
+    Task<T?> GetByIdAsync(Guid id);
     Task AddAsync(T entity);
     Task UpdateAsync(T entity);
     Task DeleteAsync(Guid id);
@@ -29,7 +29,7 @@ public class Repository<T> : IRepository<T> where T : class
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(Guid id)
+    public async Task<T?> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
     }
@@ -57,37 +57,51 @@ public class Repository<T> : IRepository<T> where T : class
     }
 }
 
-public class UserRepository : Repository<User>
+public class UserRepository(AppDbContext context) : Repository<UserRecord>(context)
 {
-    public UserRepository(AppDbContext context) : base(context) { }
-
-    public async Task<User> GetByNameAsync(string name)
+    public async Task<UserRecord?> GetByNameAsync(string name)
     {
         return await _dbSet.FirstOrDefaultAsync(u => u.Name == name);
     }
+
+    public async Task<UserRecord?> Authorize(string name, string password)
+    {
+        string hashedPassword = Security.HashPassword(password.Trim());
+
+        var result = await _dbSet.FirstOrDefaultAsync(u => u.Name == name.Trim()
+        && u.Password.Trim() == hashedPassword);
+        return result;
+    }
+
+    public async Task Register(string login, string password)
+    {
+        await _dbSet.AddAsync(
+            new() {Id=Guid.NewGuid(),Name = login, Password = Security.HashPassword(password.Trim()), Role = UserRoles.Player });
+        await _context.SaveChangesAsync();
+    }
 }
 
-public class PlayerStatisticRepository : Repository<PlayerStatistic>
+public class PlayerStatisticRepository : Repository<PlayerStatisticRecord>
 {
     public PlayerStatisticRepository(AppDbContext context) : base(context) { }
 }
 
-public class GameSessionRepository : Repository<GameSession>
+public class GameSessionRepository : Repository<GameSessionRecord>
 {
     public GameSessionRepository(AppDbContext context) : base(context) { }
 }
 
-public class AchievementRepository : Repository<Achievement>
+public class AchievementRepository : Repository<AchievementRecord>
 {
     public AchievementRepository(AppDbContext context) : base(context) { }
 }
 
-public class FeedbackRepository : Repository<Feedback>
+public class FeedbackRepository : Repository<FeedbackRecord>
 {
     public FeedbackRepository(AppDbContext context) : base(context) { }
 }
 
-public class ReportRepository : Repository<Report>
+public class ReportRepository : Repository<ReportRecord>
 {
     public ReportRepository(AppDbContext context) : base(context) { }
 }

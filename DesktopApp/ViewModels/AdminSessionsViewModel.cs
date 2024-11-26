@@ -5,4 +5,9 @@ internal class AdminSessionsViewModel : ViewModel
 
 }
 
+internal class AdminFeedbacksViewModel : ViewModel
+{
+
+}
+
 

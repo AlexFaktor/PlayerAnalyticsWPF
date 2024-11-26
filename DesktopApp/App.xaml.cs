@@ -1,6 +1,7 @@
 ﻿using Database.Efc;
 using Database.Records;
 using Database.Repositories;
+using DesktopApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -28,16 +29,19 @@ namespace DesktopApp
 
         private void ConfigureServices(IServiceCollection services)
         {
+            // Створення DbContext
+            DbInitializer.InitializeDatabase(new AppDbContext());
+
             // Реєстрація DbContext
             services.AddDbContext<AppDbContext>();
 
             // Реєстрація репозиторіїв
-            services.AddScoped<IRepository<User>, UserRepository>();
-            services.AddScoped<IRepository<PlayerStatistic>, PlayerStatisticRepository>();
-            services.AddScoped<IRepository<GameSession>, GameSessionRepository>();
-            services.AddScoped<IRepository<Achievement>, AchievementRepository>();
-            services.AddScoped<IRepository<Feedback>, FeedbackRepository>();
-            services.AddScoped<IRepository<Report>, ReportRepository>();
+            services.AddScoped<UserRepository>();
+            services.AddScoped<IRepository<PlayerStatisticRecord>, PlayerStatisticRepository>();
+            services.AddScoped<IRepository<GameSessionRecord>, GameSessionRepository>();
+            services.AddScoped<IRepository<AchievementRecord>, AchievementRepository>();
+            services.AddScoped<IRepository<FeedbackRecord>, FeedbackRepository>();
+            services.AddScoped<IRepository<ReportRecord>, ReportRepository>();
 
             // Реєстрація ViewModel
             services.AddScoped<MainViewModel>();
@@ -45,7 +49,5 @@ namespace DesktopApp
             // Реєстрація Views
             services.AddScoped<MainWindow>();
         }
-
     }
-
 }

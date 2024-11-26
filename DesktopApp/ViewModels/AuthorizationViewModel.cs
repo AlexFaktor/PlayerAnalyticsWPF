@@ -3,6 +3,8 @@ using DesktopApp.Views;
 using System.Windows.Input;
 using System.Windows;
 using DesktopApp.Tools;
+using Microsoft.Extensions.DependencyInjection;
+using Database.Repositories;
 
 namespace DesktopApp.ViewModels;
 
@@ -38,39 +40,33 @@ internal class AuthorizationViewModel : ViewModel
         .DataContext as MainViewModel
             ?? throw new Exception("Не вірний DataContext");
 
-        _mainWindowVM.MainView = new RegistrationVM();
+        _mainWindowVM.View = new RegistrationViewModel();
     }
 
     private async void Authorized()
     {
-        var app = (App)Application.Current;
+        var userRepository = App.ServiceProvider.GetRequiredService<UserRepository>();
 
-        var user = await app.Database.UserRepository.Authorized(new() { Name = _login, Password = Password });
-        if (user == null)
+        var user = await userRepository.Authorize(_login, _password);
+
+        if (user == null || (_login == string.Empty || _password ==string.Empty))
         {
             MessageBox.Show("Неправильне введення");
             return;
         }
 
+        var mainVM = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)?
+            .DataContext as MainViewModel ?? throw new Exception("Не вірний DataContext");
+
         if (user != null && (UserRoles)user.Role == UserRoles.Player)
         {
-            var _mainWindowVM = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive)?
-            .DataContext as MainWindowVM
-            ?? throw new Exception("Не вірний DataContext");
-
-            _mainWindowVM.MainView = new UserMenuVM();
-            app.SetUserData(user);
+            mainVM.View = new MenuUserViewModel();
         }
         else if (user != null && (UserRoles)user.Role == UserRoles.Admin)
         {
-            var window = Application.Current.Windows.OfType<Window>();
-
-            var _mainWindowVM = window.SingleOrDefault(x => x.IsActive)?
-            .DataContext as MainWindowVM
-            ?? throw new Exception("Не вірний DataContext");
-
-            _mainWindowVM.MainView = new AdminMenuVM();
-            app.SetUserData(user);
+            mainVM.View = new MenuAdminViewModel();
         }
+
+        mainVM.User = user;
     }
 }

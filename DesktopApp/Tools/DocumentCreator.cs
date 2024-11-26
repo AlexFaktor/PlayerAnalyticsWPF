@@ -5,7 +5,7 @@ namespace DesktopApp.Tools;
 
 internal class DocumentCreator
 {
-    public static void CreateListOfRepots(List<Report> reports, string filePath)
+    public static void CreateListOfRepots(List<ReportRecord> reports, string filePath)
     {
         using var doc = DocX.Create(filePath);
 

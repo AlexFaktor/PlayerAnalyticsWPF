@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DesktopApp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v="clr-namespace:DesktopApp.Views"
     xmlns:vm="clr-namespace:DesktopApp.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -14,5 +15,90 @@
         <vm:MenuAdminViewModel />
     </UserControl.DataContext>
 
-    <Grid />
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TabControl x:Name="TabMenu" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,4,0,0" Text="Adventure" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,4,0,0" Text="Gacha" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,4,0,0" Text="Profile" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,4,0,0" Text="Inventory" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,4,0,0" Text="Collection" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,4,0,0" Text="Market" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+        </TabControl>
+
+        <ContentControl Grid.Row="1" Content="{Binding SelectedControl}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type vm:AdminUsersViewModel}">
+                    <v:AdminUsers />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:AdminSessionsViewModel}">
+                    <v:AdminSessions />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:AdminStatisticViewModel}">
+                    <v:AdminStatistic />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:AdminAchievementsViewModel}">
+                    <v:AdminAchievements />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:AdminReportsViewModel}">
+                    <v:AdminReports />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:AdminFeedbacksViewModel}">
+                    <v:AdminFeedbacks />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
 </UserControl>
