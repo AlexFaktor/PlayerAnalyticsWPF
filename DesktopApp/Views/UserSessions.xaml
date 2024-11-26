@@ -10,5 +10,10 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:UserSessionsViewModel />
+    </UserControl.DataContext>
+
     <Grid />
 </UserControl>

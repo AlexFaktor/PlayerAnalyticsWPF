@@ -6,7 +6,7 @@ namespace Database.Repositories;
 
 public interface IRepository<T>
 {
-    Task<IEnumerable<T>> GetAllAsync();
+    Task<List<T>> GetAllAsync();
     Task<T?> GetByIdAsync(Guid id);
     Task AddAsync(T entity);
     Task UpdateAsync(T entity);
@@ -24,7 +24,7 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = context.Set<T>();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }

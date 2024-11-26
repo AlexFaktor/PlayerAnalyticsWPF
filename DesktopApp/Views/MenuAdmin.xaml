@@ -25,7 +25,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Adventure" />
+                        <TextBlock Margin="4,4,0,0" Text="Користувачі" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -34,7 +34,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Gacha" />
+                        <TextBlock Margin="4,4,0,0" Text="Ігрові сесії" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -43,7 +43,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Profile" />
+                        <TextBlock Margin="4,4,0,0" Text="Статистика" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -52,7 +52,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Inventory" />
+                        <TextBlock Margin="4,4,0,0" Text="Досягнення" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -62,7 +62,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Collection" />
+                        <TextBlock Margin="4,4,0,0" Text="Помилки" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -71,7 +71,7 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,4,0,0" Text="Market" />
+                        <TextBlock Margin="4,4,0,0" Text="Відгуки" />
                     </StackPanel>
                 </TabItem.Header>
 
@@ -80,9 +80,6 @@
 
         <ContentControl Grid.Row="1" Content="{Binding SelectedControl}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vm:AdminUsersViewModel}">
-                    <v:AdminUsers />
-                </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:AdminSessionsViewModel}">
                     <v:AdminSessions />
                 </DataTemplate>
@@ -97,6 +94,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:AdminFeedbacksViewModel}">
                     <v:AdminFeedbacks />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:AdminUsersViewModel}">
+                    <v:AdminUsers />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
