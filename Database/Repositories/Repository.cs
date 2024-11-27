@@ -84,11 +84,20 @@ public class UserRepository(AppDbContext context) : Repository<UserRecord>(conte
 public class PlayerStatisticRepository : Repository<PlayerStatisticRecord>
 {
     public PlayerStatisticRepository(AppDbContext context) : base(context) { }
+
+    public async Task<PlayerStatisticRecord?> GetByUserId(Guid userId)
+    {
+        return await _dbSet.FirstOrDefaultAsync(s => s.UserId == userId);
+    }
 }
 
 public class GameSessionRepository : Repository<GameSessionRecord>
 {
     public GameSessionRepository(AppDbContext context) : base(context) { }
+    public async Task<List<GameSessionRecord>> GetByUserId(Guid userId)
+    {
+        return await _dbSet.Where(s => s.UserId == userId).ToListAsync();
+    }
 }
 
 public class AchievementRepository : Repository<AchievementRecord>
@@ -99,6 +108,20 @@ public class AchievementRepository : Repository<AchievementRecord>
 public class FeedbackRepository : Repository<FeedbackRecord>
 {
     public FeedbackRepository(AppDbContext context) : base(context) { }
+
+    public async Task<FeedbackRecord?> GetByUserId(Guid userId)
+    {
+        return await _dbSet.FirstOrDefaultAsync(f => f.UserId == userId);
+    }
+
+    public async void Save(FeedbackRecord feedback)
+    {
+        var possibleRecord = await _dbSet.FirstOrDefaultAsync(f => f.UserId == feedback.UserId);
+        if (possibleRecord != null)
+            _dbSet.Remove(possibleRecord);
+        await _dbSet.AddAsync(feedback);
+        await _context.SaveChangesAsync();
+    }
 }
 
 public class ReportRepository : Repository<ReportRecord>

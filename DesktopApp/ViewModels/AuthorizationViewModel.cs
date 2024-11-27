@@ -48,6 +48,8 @@ internal class AuthorizationViewModel : ViewModel
         var userRepository = App.ServiceProvider.GetRequiredService<UserRepository>();
 
         var user = await userRepository.Authorize(_login, _password);
+        App.CurrentUser = user;
+
 
         if (user == null || (_login == string.Empty || _password ==string.Empty))
         {
@@ -67,14 +69,11 @@ internal class AuthorizationViewModel : ViewModel
             mainVM.View = new MenuAdminViewModel();
         }
 
-        App.CurrentUser = user;
-
         if (mainVM is null)
         {
             MessageBox.Show("MainViewModel is null", "Помилка!", MessageBoxButton.OK, icon: MessageBoxImage.Error);
             return;
         }
-
         if (App.CurrentUser is null)
         {
             MessageBox.Show("MainViewModel.User is null", "Помилка!", MessageBoxButton.OK, icon: MessageBoxImage.Error);

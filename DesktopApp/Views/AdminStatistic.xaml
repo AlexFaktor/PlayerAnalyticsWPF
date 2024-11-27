@@ -9,10 +9,84 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid />
-
     <UserControl.DataContext>
         <vm:AdminStatisticViewModel />
     </UserControl.DataContext>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <!--  Header  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="Статистика гравців" />
+
+
+        <!--  Users DataGrid  -->
+        <DataGrid
+            Grid.Row="1"
+            Margin="0,0,0,10"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ItemsSource="{Binding UserStats}"
+            SelectionMode="Single">
+            <DataGrid.Columns>
+                <!--  User ID  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding UserId}"
+                    Header="UserId"
+                    IsReadOnly="True" />
+
+                <!--  GamesPlayed  -->
+                <DataGridTextColumn
+                    Width="auto"
+                    Binding="{Binding GamesPlayed}"
+                    Header="Кількість ігрових сесій"
+                    IsReadOnly="True" />
+
+                <!--  GamesDraw  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding GamesPlayed}"
+                    Header="Нічия"
+                    IsReadOnly="True" />
+
+                <!--  TotalTimePlayed  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TotalTimePlayed}"
+                    Header="Час в грі (год.)"
+                    IsReadOnly="True" />
+
+                <!--  TotalTimePlayed  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding HighScore}"
+                    Header="Найкращий результат"
+                    IsReadOnly="True" />
+
+                <!--  User Role  -->
+                <DataGridComboBoxColumn
+                    Width="Auto"
+                    Header="Роль"
+                    ItemsSource="{Binding Roles}"
+                    SelectedItemBinding="{Binding Role}" />
+
+                <!--  Actions  -->
+                <DataGridTemplateColumn Width="Auto" Header="Дії">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

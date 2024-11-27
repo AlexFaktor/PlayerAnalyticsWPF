@@ -14,5 +14,58 @@
         <vm:AdminAchievementsViewModel />
     </UserControl.DataContext>
 
-    <Grid />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Header  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="Досягнення гравців" />
+
+        <!--  Users DataGrid  -->
+        <DataGrid
+            Grid.Row="1"
+            Margin="0,0,0,10"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ItemsSource="{Binding Achievements}"
+            SelectionMode="Single">
+            <DataGrid.Columns>
+                <!--  User ID  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding UserId}"
+                    Header="ID гравця"
+                    IsReadOnly="True" />
+
+                <!--  Achievement Name  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Name}"
+                    Header="Ім'я" />
+
+                <!--  User Name  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding DateUnlocked}"
+                    Header="Час отримання" />
+
+                <!--  Actions  -->
+                <DataGridTemplateColumn Width="Auto" Header="Дії">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
 </UserControl>

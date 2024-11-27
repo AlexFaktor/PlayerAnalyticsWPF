@@ -15,5 +15,88 @@
         <vm:UserSessionsViewModel />
     </UserControl.DataContext>
 
-    <Grid />
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Header  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,0,0,10"
+            FontSize="24"
+            FontWeight="Bold"
+            Text="Ваші сесії" />
+
+        <!--  Users DataGrid  -->
+        <DataGrid
+            Grid.Row="1"
+            Margin="0,0,0,10"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ItemsSource="{Binding Sessions}"
+            SelectionMode="Single">
+            <DataGrid.Columns>
+                <!--  User ID  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Id}"
+                    Header="ID"
+                    IsReadOnly="True" />
+
+                <!--  Date  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding SessionDate}"
+                    Header="Дата"
+                    IsReadOnly="True" />
+
+                <!--  Score  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Score}"
+                    Header="Оцінка"
+                    IsReadOnly="True" />
+
+                <!--  Duration  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Duration}"
+                    Header="Тривалість"
+                    IsReadOnly="True" />
+
+                <!--  Result  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Result}"
+                    Header="Результа"
+                    IsReadOnly="True" />
+
+
+                <!--  Actions  -->
+                <DataGridTemplateColumn
+                    Width="Auto"
+                    Header="Дії"
+                    Visibility="Hidden">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2">
+            <Button
+                Width="200"
+                HorizontalAlignment="Right"
+                            Command="{Binding AddRandomSessionCommand}"
+
+                Content="DEMO: Створити сесію" />
+        </StackPanel>
+
+    </Grid>
 </UserControl>

@@ -14,5 +14,82 @@
         <vm:UserProfileViewModel />
     </UserControl.DataContext>
 
-    <Grid />
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="18" />
+                </Style>
+            </StackPanel.Resources>
+
+            <StackPanel Margin="10,10,300,10" Orientation="Horizontal">
+
+                <TextBox
+                    Width="280"
+                    FontSize="18"
+                    Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Margin="40,0,0,0" Content="Змінити ім'я" />
+            </StackPanel>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Всього ігор зіграно - " />
+                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Перемог - " />
+                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Поразок - " />
+                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Нічія - " />
+                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+            </TextBlock>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Відсоток перемогі - " />
+                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+                <Run Text="%" />
+            </TextBlock>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Найбільший рахунок - " />
+                <Run Text="" />
+            </TextBlock>
+
+            <TextBlock
+                Width="280"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Час в грі - " />
+                <Run Text="" />
+                <Run Text=" год." />
+            </TextBlock>
+
+
+        </StackPanel>
+    </Grid>
 </UserControl>
