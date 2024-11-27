@@ -28,7 +28,10 @@
                     Width="280"
                     FontSize="18"
                     Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Margin="40,0,0,0" Content="Змінити ім'я" />
+                <Button
+                    Margin="40,0,0,0"
+                    Command="{Binding ChangeNameCommand}"
+                    Content="Змінити ім'я" />
             </StackPanel>
 
             <TextBlock
@@ -44,7 +47,7 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left">
                 <Run Text="Перемог - " />
-                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+                <Run Text="{Binding PlayerStatisticRecord.GamesWon, UpdateSourceTrigger=PropertyChanged}" />
             </TextBlock>
 
             <TextBlock
@@ -52,7 +55,7 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left">
                 <Run Text="Поразок - " />
-                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+                <Run Text="{Binding GameLose, UpdateSourceTrigger=PropertyChanged}" />
             </TextBlock>
 
             <TextBlock
@@ -60,7 +63,7 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left">
                 <Run Text="Нічія - " />
-                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+                <Run Text="{Binding PlayerStatisticRecord.GamesDraw, UpdateSourceTrigger=PropertyChanged}" />
             </TextBlock>
 
             <TextBlock
@@ -68,7 +71,7 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left">
                 <Run Text="Відсоток перемогі - " />
-                <Run Text="{Binding PlayerStatisticRecord.GamesPlayed, UpdateSourceTrigger=PropertyChanged}" />
+                <Run Text="{Binding Winrate, UpdateSourceTrigger=PropertyChanged}" />
                 <Run Text="%" />
             </TextBlock>
 
@@ -77,7 +80,7 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left">
                 <Run Text="Найбільший рахунок - " />
-                <Run Text="" />
+                <Run Text="{Binding PlayerStatisticRecord.HighScore}" />
             </TextBlock>
 
             <TextBlock
@@ -85,8 +88,17 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left">
                 <Run Text="Час в грі - " />
-                <Run Text="" />
+                <Run Text="{Binding TimePlayed}" />
                 <Run Text=" год." />
+            </TextBlock>
+
+            <TextBlock
+                Width="320"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left">
+                <Run Text="Кількість отриманих досягнень - " />
+                <Run Text="{Binding AchievementsCount}" />
+                <Run Text="" />
             </TextBlock>
 
 

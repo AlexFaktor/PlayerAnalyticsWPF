@@ -39,7 +39,7 @@ internal class UserSessionsViewModel : ViewModel
             SessionDate = DateTime.Now,
             Score = _random.Next(1, 1000),
             Duration = Math.Round(_random.NextDouble() * _random.Next(1, 100), 2),
-            Result = (GameResults)_random.Next(0,2)
+            Result = (GameResults)_random.Next(0,3)
 
         };
 

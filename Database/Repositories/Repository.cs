@@ -34,7 +34,7 @@ public class Repository<T> : IRepository<T> where T : class
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task AddAsync(T entity)
+    public virtual async Task AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
         await _context.SaveChangesAsync();
@@ -73,10 +73,34 @@ public class UserRepository(AppDbContext context) : Repository<UserRecord>(conte
         return result;
     }
 
+    public async Task<bool> ChangeName(string oldName, string newName)
+    {
+        if (oldName == newName)
+            return true;
+
+        var possibleUserNew = await GetByNameAsync(newName);
+
+        if (possibleUserNew != null)
+            return false;
+
+        var possibleUser = await GetByNameAsync(oldName);
+
+        if (possibleUser == null)
+            return false;
+
+        possibleUser.Name = newName;
+        _context.SaveChanges();
+        return true;
+    }   
+
     public async Task Register(string login, string password)
     {
+        var userId = Guid.NewGuid();
         await _dbSet.AddAsync(
-            new() {Id=Guid.NewGuid(),Name = login, Password = Security.HashPassword(password.Trim()), Role = UserRoles.Player });
+            new() { Id = userId, Name = login, Password = Security.HashPassword(password.Trim()), Role = UserRoles.Player });
+
+        await _context.PlayerStatistics.AddAsync(new() { Id = Guid.NewGuid(), UserId = userId, });
+
         await _context.SaveChangesAsync();
     }
 }
@@ -89,11 +113,39 @@ public class PlayerStatisticRepository : Repository<PlayerStatisticRecord>
     {
         return await _dbSet.FirstOrDefaultAsync(s => s.UserId == userId);
     }
+
+    public async Task ConsiderSession(GameSessionRecord session)
+    {
+        var stat = await _dbSet.FirstAsync(stat => stat.UserId == session.UserId);
+        stat.GamesPlayed++;
+
+        if (session.Result == GameResults.Win)
+            stat.GamesWon++;
+        else if (session.Result == GameResults.Draw)
+            stat.GamesDraw++;
+
+        stat.TotalTimePlayed += Math.Round( session.Duration / 60, 2);
+
+        if (stat.HighScore < session.Score)
+            stat.HighScore = session.Score;
+
+        await _context.SaveChangesAsync();
+    }
 }
 
 public class GameSessionRepository : Repository<GameSessionRecord>
 {
     public GameSessionRepository(AppDbContext context) : base(context) { }
+
+    public override async Task AddAsync(GameSessionRecord sessionRecord)
+    {
+        var statRep = new PlayerStatisticRepository(_context);
+
+        await _dbSet.AddAsync(sessionRecord);
+        await statRep.ConsiderSession(sessionRecord);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<List<GameSessionRecord>> GetByUserId(Guid userId)
     {
         return await _dbSet.Where(s => s.UserId == userId).ToListAsync();
@@ -103,6 +155,11 @@ public class GameSessionRepository : Repository<GameSessionRecord>
 public class AchievementRepository : Repository<AchievementRecord>
 {
     public AchievementRepository(AppDbContext context) : base(context) { }
+
+    public async Task<List<AchievementRecord>> GetByUserId(Guid userId)
+    {
+        return await _dbSet.Where(s => s.UserId == userId).ToListAsync();
+    }
 }
 
 public class FeedbackRepository : Repository<FeedbackRecord>
