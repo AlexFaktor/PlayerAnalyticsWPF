@@ -47,7 +47,7 @@
                 <!--  Achievement Name  -->
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Name}"
+                    Binding="{Binding AchievementName}"
                     Header="Ім'я" />
 
                 <!--  User Name  -->
@@ -57,7 +57,10 @@
                     Header="Час отримання" />
 
                 <!--  Actions  -->
-                <DataGridTemplateColumn Width="Auto" Header="Дії">
+                <DataGridTemplateColumn
+                    Width="Auto"
+                    Header="Дії"
+                    Visibility="Hidden">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />

@@ -46,18 +46,21 @@
 
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding DateUnlocked}"
-                    Header="Час" />
+                    Binding="{Binding FeedbackDate}"
+                    Header="Час"
+                    IsReadOnly="True" />
 
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Rating}"
-                    Header="Оцінка" />
+                    Header="Оцінка"
+                    IsReadOnly="True" />
 
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Comment}"
-                    Header="Деталі" />
+                    Header="Деталі"
+                    IsReadOnly="True" />
 
                 <!--  Actions  -->
                 <DataGridTemplateColumn Width="Auto" Header="Дії">

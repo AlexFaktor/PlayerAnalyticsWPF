@@ -50,10 +50,17 @@
                     Header="Кількість ігрових сесій"
                     IsReadOnly="True" />
 
+                <!--  GamesWin  -->
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding GamesWon}"
+                    Header="Перемога"
+                    IsReadOnly="True" />
+
                 <!--  GamesDraw  -->
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding GamesPlayed}"
+                    Binding="{Binding GamesDraw}"
                     Header="Нічия"
                     IsReadOnly="True" />
 
@@ -71,15 +78,12 @@
                     Header="Найкращий результат"
                     IsReadOnly="True" />
 
-                <!--  User Role  -->
-                <DataGridComboBoxColumn
-                    Width="Auto"
-                    Header="Роль"
-                    ItemsSource="{Binding Roles}"
-                    SelectedItemBinding="{Binding Role}" />
 
                 <!--  Actions  -->
-                <DataGridTemplateColumn Width="Auto" Header="Дії">
+                <DataGridTemplateColumn
+                    Width="Auto"
+                    Header="Дії"
+                    Visibility="Hidden">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />

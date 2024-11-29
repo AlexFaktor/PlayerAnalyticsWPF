@@ -11,7 +11,7 @@ internal class DocumentCreator
 
         doc.InsertParagraph("Reports").Bold().FontSize(16).Alignment = Xceed.Document.NET.Alignment.center;
 
-        var table = doc.AddTable(reports.Count + 1, 3);
+        var table = doc.AddTable(reports.Count + 1, 4);
 
         table.Rows[0].Cells[0].Paragraphs.First().Append("UserId").Bold();
         table.Rows[0].Cells[1].Paragraphs.First().Append("Date").Bold();

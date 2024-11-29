@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!--  Header  -->
@@ -46,15 +47,18 @@
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding ReportDate}"
-                    Header="Час" />
+                    Header="Час"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding ReportType}"
-                    Header="Тип" />
+                    Header="Тип"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Details}"
-                    Header="Деталі" />
+                    Header="Деталі"
+                    IsReadOnly="True" />
 
 
                 <!--  Actions  -->
@@ -74,5 +78,13 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="2">
+            <Button
+                Width="180"
+                HorizontalAlignment="Left"
+                Command="{Binding CreateErrorReportCommand}"
+                Content="Створити звіт" />
+        </StackPanel>
     </Grid>
 </UserControl>

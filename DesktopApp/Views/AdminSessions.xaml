@@ -37,17 +37,17 @@
             ItemsSource="{Binding Sessions}"
             SelectionMode="Single">
             <DataGrid.Columns>
-                <!--  User ID  -->
+                <!--  ID  -->
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Id}"
                     Header="ID"
                     IsReadOnly="True" />
 
-                <!--  ID  -->
+                <!--  User ID  -->
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Name}"
+                    Binding="{Binding UserId}"
                     Header="ID гравця"
                     IsReadOnly="True" />
 
