@@ -59,6 +59,16 @@ public class Repository<T> : IRepository<T> where T : class
 
 public class UserRepository(AppDbContext context) : Repository<UserRecord>(context)
 {
+    public async Task<List<UserRecord>> GetAllUsersAsync(string? hasInName = null, bool? isAdmin = null)
+    {
+        return await _dbSet
+            .Where(u =>
+                (hasInName == null || u.Name.Contains(hasInName)) && // Фільтрація за іменем
+                ((isAdmin == null || isAdmin == false) || (isAdmin.Value && u.Role == UserRoles.Admin)) // Фільтрація за роллю
+            )
+            .ToListAsync();
+    }
+
     public async Task<UserRecord?> GetByNameAsync(string name)
     {
         return await _dbSet.FirstOrDefaultAsync(u => u.Name == name);

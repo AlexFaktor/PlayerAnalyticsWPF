@@ -80,7 +80,10 @@
                     IsReadOnly="True" />
 
                 <!--  Actions  -->
-                <DataGridTemplateColumn Width="Auto" Header="Дії">
+                <DataGridTemplateColumn
+                    Width="Auto"
+                    Header="Дії"
+                    Visibility="Hidden">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">

@@ -60,10 +60,16 @@
                 <DataGridTemplateColumn
                     Width="Auto"
                     Header="Дії"
-                    Visibility="Hidden">
+                    Visibility="Visible">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding DataContext.DeleteAchievementCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}"
+                                    Content="Видалити"
+                                    Foreground="Red" />
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
