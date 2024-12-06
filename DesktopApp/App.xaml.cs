@@ -23,7 +23,6 @@ namespace DesktopApp
 
             base.OnStartup(e);
 
-            // Встановіть головне вікно
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }

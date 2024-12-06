@@ -15,7 +15,7 @@ internal class UserAchievementsViewModel : ViewModel
     public UserAchievementsViewModel()
     {
         _achievementRepository = App.ServiceProvider.GetRequiredService<AchievementRepository>();
-        Achievements = new ObservableCollection<AchievementRecord>(_achievementRepository.GetAllAsync().Result);
+        Achievements = new ObservableCollection<AchievementRecord>(_achievementRepository.GetByUserId(App.CurrentUser!.Id).Result);
 
         AddRandomAchievementCommand = new RelayCommand(AddRandomAchievement);
     }
